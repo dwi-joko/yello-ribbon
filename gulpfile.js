@@ -2,6 +2,23 @@ var gulp = require("gulp");
 var browserSync = require("browser-sync").create();
 var sass = require("gulp-sass");
 var sass = require("gulp-sass")(require("sass"));
+var deploy = require("gulp-gh-pages");
+
+/**
+ * Push build to gh-pages
+ */
+gulp.task("deploy", function () {
+  return gulp.src("./dist/**/*").pipe(deploy());
+});
+
+gulp.task("deploy", function () {
+  return gulp.src("./app/**/*").pipe(
+    deploy({
+      remoteUrl: "https://github.com/dwi-joko/yello-ribbon/tree/main/app",
+      branch: "main",
+    })
+  );
+});
 
 // Compile sass into CSS & auto-inject into browsers
 gulp.task("sass", function () {
